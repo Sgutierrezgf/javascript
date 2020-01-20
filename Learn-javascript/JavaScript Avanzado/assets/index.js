@@ -1,5 +1,6 @@
 import MediaPlayer from './MediaPlayer.js';
 import AutoPlay from './plugins/AutoPlay.js';
+import AutoPause from './plugins/AutoPause.js'
 
 const video = document.querySelector('video');
 const player = new MediaPlayer({
@@ -20,3 +21,9 @@ muteButton.onclick = () => {
         player.mute();
     }
 };
+
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js').catch(error => {
+        console.log(error.message)
+    })
+}
