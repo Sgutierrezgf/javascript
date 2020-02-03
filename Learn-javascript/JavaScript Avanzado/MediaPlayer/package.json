@@ -1,0 +1,16 @@
+{
+    "name": "@sgutierrez/platzimediaplayer",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "build": "tsc Src/**/*.ts Src/plugins/*.ts Src/plugins/**/*.ts --outDir lib",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "typescript": "^3.7.5"
+    }
+}
