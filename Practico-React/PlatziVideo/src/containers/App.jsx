@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import Search from '../components/Search';
 import Categories from '../components/Categories';
@@ -11,37 +11,41 @@ import '../assets/styles/components/Categories.scss';
 import '../assets/styles/components/Carousel.scss';
 import '../assets/styles/components/CarouselItem.scss';
 import '../assets/styles/components/Footer.scss';
+import useInitialState from '../hooks/useInitialState';
 
-const App = () => (
-	<div className="App">
-		<Header />
-		<Search />
+const API = 'http://localhost:3000/initalState';
 
-		<Categories title="Mi lista">
-			<Carousel>
-				<CarouselItem />
-				<CarouselItem />
-				<CarouselItem />
-				<CarouselItem />
-				<CarouselItem />
-			</Carousel>
-		</Categories>
+const App = () => {
+  const initialState = useInitialState(API);
+  return (
+    <div className='App'>
+      <Header />
+      <Search />
+      {initialState.mylist.length > 0 && (
+        <Categories title='Mi lista'>
+          <Carousel>
+            <CarouselItem />
+          </Carousel>
+        </Categories>
+      )}
 
-		<Categories title="Tendencias">
-			<Carousel>
-				<CarouselItem />
-				<CarouselItem />
-			</Carousel>
-		</Categories>
+      <Categories title='Tendencias'>
+        <Carousel>
+          {initialState.trends.map((item) => <CarouselItem key={item.id} {...item} />)}
 
-		<Categories title="Originales de platzi video">
-			<Carousel>
-				<CarouselItem />
-			</Carousel>
-		</Categories>
+        </Carousel>
+      </Categories>
 
-		<Footer />
-	</div>
-);
+      <Categories title='Originales de platzi video'>
+        <Carousel>
+          {initialState.trends.map((item) => <CarouselItem key={item.id} {...item} />)}
+          <CarouselItem />
+        </Carousel>
+      </Categories>
+
+      <Footer />
+    </div>
+  );
+};
 
 export default App;
